@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeUpContainer, fadeUpItem, scaleIn } from "@/lib/motion";
@@ -8,15 +9,62 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { GoldRule } from "@/components/ui/GoldRule";
 
 const team = [
-  { name: "Mzi", role: "Operations & Guest Experience", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" },
-  { name: "Brenda", role: "Events & Client Relations", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" },
-  { name: "Sli", role: "Hospitality & Service Excellence", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80" }
+  { name: "Mzi", role: "Operations & Guest Experience", initials: "M" },
+  { name: "Brenda", role: "Events & Client Relations", initials: "B" },
+  { name: "Sli", role: "Hospitality & Service Excellence", initials: "S" }
 ];
 
+function IconFrame({ children }: { children: ReactNode }): JSX.Element {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  );
+}
+
+function WarmthIcon(): JSX.Element {
+  return (
+    <IconFrame>
+      <path d="M16 26s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.7A4.5 4.5 0 0 1 24 15c0 5.8-8 11-8 11z" />
+    </IconFrame>
+  );
+}
+
+function DetailIcon(): JSX.Element {
+  return (
+    <IconFrame>
+      <circle cx="14" cy="14" r="6" />
+      <path d="M19 19l5 5" />
+      <path d="M12 14h4M14 12v4" />
+    </IconFrame>
+  );
+}
+
+function HospitalityIcon(): JSX.Element {
+  return (
+    <IconFrame>
+      <path d="M6 26V14l10-8 10 8v12" />
+      <path d="M12 26v-8h8v8" />
+    </IconFrame>
+  );
+}
+
 const values = [
-  { icon: "🤝", title: "Warmth", body: "We greet every guest like family, creating connections that make your stay feel like home." },
-  { icon: "✨", title: "Attention to Detail", body: "From sensor bathroom lighting to curated breakfast spreads — the little things matter." },
-  { icon: "🏡", title: "Authentic Hospitality", body: "Rooted in KwaZulu-Natal tradition, we bring genuine care to every interaction." }
+  {
+    icon: <WarmthIcon />,
+    title: "Warmth",
+    body: "We greet every guest like family, creating connections that make your stay feel like home."
+  },
+  {
+    icon: <DetailIcon />,
+    title: "Attention to Detail",
+    body: "From sensor bathroom lighting to curated breakfast spreads — the little things matter."
+  },
+  {
+    icon: <HospitalityIcon />,
+    title: "Authentic Hospitality",
+    body: "Rooted in KwaZulu-Natal tradition, we bring genuine care to every interaction."
+  }
 ];
 
 export function AboutContent(): JSX.Element {
@@ -98,14 +146,17 @@ export function AboutContent(): JSX.Element {
               variants={fadeUpItem}
               className="text-center"
             >
-              <div className="mx-auto h-32 w-32 overflow-hidden rounded-full">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={256}
-                  height={256}
-                  className="h-full w-full object-cover"
-                />
+              <div
+                className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border border-[var(--border)]"
+                style={{ background: "var(--gold-pale)" }}
+                aria-hidden="true"
+              >
+                <span
+                  className="text-[2.5rem] font-light text-[var(--gold)]"
+                  style={{ fontFamily: "var(--font-display), serif" }}
+                >
+                  {member.initials}
+                </span>
               </div>
               <h3
                 className="mt-5 text-[1.5rem] font-light text-[var(--text-primary)]"
@@ -143,7 +194,7 @@ export function AboutContent(): JSX.Element {
               variants={fadeUpItem}
               className="text-center"
             >
-              <span className="text-[2rem] text-[var(--gold)]">{v.icon}</span>
+              <div className="flex justify-center text-[var(--gold)]">{v.icon}</div>
               <h3
                 className="mt-3 text-[1.5rem] font-semibold text-[var(--text-primary)]"
                 style={{ fontFamily: "var(--font-display), serif" }}

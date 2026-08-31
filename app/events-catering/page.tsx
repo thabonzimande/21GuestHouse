@@ -30,7 +30,7 @@ export default function EventsCateringPage(): JSX.Element {
               "linear-gradient(105deg, rgba(18,18,18,0.85) 0%, rgba(18,18,18,0.45) 55%, rgba(18,18,18,0.1) 100%)"
           }}
         />
-        <div className="absolute inset-0 z-[2] flex items-center justify-center text-center">
+        <div className="absolute inset-0 z-[2] flex items-center justify-center pt-20 text-center">
           <div className="max-w-[640px] px-6">
             <h1 className="text-display text-white">
               Celebrate With Us<br />in Style

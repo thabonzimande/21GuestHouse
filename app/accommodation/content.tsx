@@ -17,27 +17,35 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
       <div className="section-container space-y-24">
         {rooms.map((room, index) => {
           const reversed = index % 2 !== 0;
+
           return (
             <div
               key={room.slug}
-              className={`grid items-center gap-12 md:grid-cols-2 ${reversed ? "md:[direction:rtl]" : ""}`}
+              className={`grid items-start gap-8 md:grid-cols-[minmax(280px,400px)_1fr] md:gap-10 lg:gap-12 ${reversed ? "md:[direction:rtl]" : ""}`}
             >
               <motion.div
                 variants={scaleIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
-                className="md:[direction:ltr]"
+                className="flex w-full max-w-[400px] flex-col gap-4 md:[direction:ltr]"
               >
-                <Image
-                  src={room.image}
-                  alt={room.name}
-                  width={1000}
-                  height={750}
-                  className="w-full object-cover"
-                  style={{ aspectRatio: "4 / 3", borderRadius: "var(--radius-md)" }}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
+                {room.images.map((src, imageIndex) => (
+                  <div
+                    key={src}
+                    className="relative h-52 w-full overflow-hidden sm:h-56"
+                    style={{ borderRadius: "var(--radius-md)" }}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${room.name} — photo ${imageIndex + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="400px"
+                      priority={imageIndex === 0}
+                    />
+                  </div>
+                ))}
               </motion.div>
 
               <motion.div
@@ -45,7 +53,7 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
-                className="md:[direction:ltr]"
+                className="min-w-0 md:[direction:ltr]"
               >
                 <motion.div variants={fadeUpItem}>
                   <Eyebrow>{room.name}</Eyebrow>

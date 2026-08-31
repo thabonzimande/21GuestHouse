@@ -10,7 +10,7 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: "9+", label: "Rooms Available", numericEnd: 9, suffix: "+" },
+  { value: "4", label: "Rooms Available", numericEnd: 4, suffix: "" },
   { value: "5★", label: "Average Guest Rating", numericEnd: 5, suffix: "★" },
   { value: "3", label: "Service Categories", numericEnd: 3, suffix: "" },
   { value: "24hr", label: "Front Desk Support", numericEnd: 24, suffix: "hr" }

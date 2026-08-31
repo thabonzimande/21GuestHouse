@@ -3,6 +3,7 @@ export interface Room {
   slug: string;
   units: number;
   image: string;
+  images: string[];
   features: string[];
   priceFrom: string;
   description: string;
@@ -10,42 +11,50 @@ export interface Room {
 
 export const rooms: Room[] = [
   {
-    name: "Executive Room",
-    slug: "executive-room",
+    name: "Standard Double Room",
+    slug: "standard-double-room",
     units: 2,
-    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1400&q=80",
+    image: "/21actualphotosgallery/Room1.jpg",
+    images: [
+      "/21actualphotosgallery/Room1.jpg",
+      "/21actualphotosgallery/Room2.jpg"
+    ],
     features: [
-      "King Bed",
+      "Double Bed",
+      "En-suite Bathroom",
+      "Air Conditioning",
+      "Smart TV",
+      "Fast WiFi",
+      "Room Service",
+      "Complimentary Parking",
+      "24hr Front Desk"
+    ],
+    priceFrom: "From R950 / night",
+    description:
+      "Our Standard Double Rooms are clean, modern, and thoughtfully designed — offering a comfortable double bed and everything you need for a restful stay in Pietermaritzburg."
+  },
+  {
+    name: "Double Room",
+    slug: "double-room",
+    units: 2,
+    image: "/21actualphotosgallery/Room3.jpg",
+    images: [
+      "/21actualphotosgallery/Room3.jpg",
+      "/21actualphotosgallery/Room4.jpg"
+    ],
+    features: [
+      "Double Bed",
       "En-suite Bathroom with Luxury Shower",
       "Air Conditioning",
       "Smart TV",
+      "Sensor Bathroom Lighting",
       "Room Service",
-      "Complimentary WiFi",
-      "Private Parking",
+      "Complimentary Parking",
       "24hr Front Desk"
     ],
     priceFrom: "From R1,250 / night",
     description:
-      "Our Executive Rooms offer an elevated stay with spacious layouts, king-sized beds, and premium amenities — ideal for discerning travellers seeking comfort and sophistication."
-  },
-  {
-    name: "Standard Room",
-    slug: "standard-room",
-    units: 7,
-    image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1400&q=80",
-    features: [
-      "Queen Bed",
-      "En-suite Bathroom",
-      "Fast WiFi",
-      "Room Service",
-      "Garden View",
-      "Complimentary Parking",
-      "24hr Front Desk",
-      "Sensor Bathroom Lighting"
-    ],
-    priceFrom: "From R950 / night",
-    description:
-      "Clean, modern, and thoughtfully designed — our Standard Rooms provide everything you need for a restful and comfortable stay in the heart of Pietermaritzburg."
+      "Spacious and elegantly finished, our Double Rooms offer premium comfort with modern amenities and refined touches — ideal for guests who want a little extra during their stay."
   }
 ];
 

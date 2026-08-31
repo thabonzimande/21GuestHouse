@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function ExecutiveRoomPage(): never {
+export default function StandardDoubleRoomPage(): never {
   redirect("/accommodation");
 }

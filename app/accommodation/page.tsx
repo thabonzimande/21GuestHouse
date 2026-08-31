@@ -6,7 +6,7 @@ import { AccommodationContent } from "./content";
 export const metadata: Metadata = {
   title: "Accommodation | @21 Guest House",
   description:
-    "Explore our Executive and Standard rooms — elegant, modern, and designed for a restful stay in Pietermaritzburg."
+    "Explore our Standard Double and Double rooms — elegant, modern, and designed for a restful stay in Pietermaritzburg."
 };
 
 export default function AccommodationPage(): JSX.Element {
@@ -14,8 +14,8 @@ export default function AccommodationPage(): JSX.Element {
     <>
       <section className="relative overflow-hidden" style={{ height: "60vh" }}>
         <Image
-          src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=2000&q=80"
-          alt="Luxury bedroom at @21 Guest House"
+          src="/21actualphotosgallery/Room1.jpg"
+          alt="Double room at @21 Guest House"
           fill
           className="object-cover"
           priority
@@ -28,7 +28,7 @@ export default function AccommodationPage(): JSX.Element {
               "linear-gradient(105deg, rgba(18,18,18,0.8) 0%, rgba(18,18,18,0.4) 55%, rgba(18,18,18,0.1) 100%)"
           }}
         />
-        <div className="absolute inset-0 z-[2] flex items-center justify-center text-center">
+        <div className="absolute inset-0 z-[2] flex items-center justify-center pt-20 text-center">
           <div className="max-w-[640px] px-6">
             <h1 className="text-display text-white">
               Where Comfort<br />Meets Elegance

@@ -1,12 +1,11 @@
-"use client";
-
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { fadeUpItem } from "@/lib/motion";
 
 interface EventTypeCardProps {
   title: string;
   description: string;
-  icon: string;
+  icon: ReactNode;
 }
 
 export function EventTypeCard({ title, description, icon }: EventTypeCardProps): JSX.Element {
@@ -21,8 +20,10 @@ export function EventTypeCard({ title, description, icon }: EventTypeCardProps):
         transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
       }}
     >
-      <span className="text-[2rem] text-[var(--gold)]">{icon}</span>
-      <h3 className="text-h3 mt-3 text-[var(--text-primary)]">{title}</h3>
+      <div className="text-[var(--gold)]" aria-hidden="true">
+        {icon}
+      </div>
+      <h3 className="text-h3 mt-4 text-[var(--text-primary)]">{title}</h3>
       <p className="text-body mt-2">{description}</p>
     </motion.article>
   );
