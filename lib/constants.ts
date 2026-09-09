@@ -147,7 +147,7 @@ export const nearbyAttractions: AttractionCategory[] = [
 ];
 
 export const contact = {
-  phones: ["073 224 9399", "033 342 1062"],
+  phones: ["073 224 9399", "033 342 3861"],
   email: "at21guesthouse@gmail.com",
   address: "21 Mayors Walk Road, Pietermaritzburg, KwaZulu-Natal, South Africa"
 };

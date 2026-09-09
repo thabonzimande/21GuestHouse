@@ -57,7 +57,7 @@ export default function AccommodationPage(): JSX.Element {
             className="mt-3 text-[0.875rem] text-[var(--charcoal)]/65"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
-            073 224 9399 &nbsp;|&nbsp; 033 342 1062 &nbsp;|&nbsp; at21guesthouse@gmail.com
+            073 224 9399 &nbsp;|&nbsp; 033 342 3861 &nbsp;|&nbsp; at21guesthouse@gmail.com
           </p>
           <div className="mt-6 flex justify-center">
             <a
