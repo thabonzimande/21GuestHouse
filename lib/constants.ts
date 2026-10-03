@@ -1,62 +1,119 @@
+export interface AmenityCategory {
+  heading: string;
+  items: string[];
+}
+
+export const amenities: AmenityCategory[] = [
+  {
+    heading: "In-Room",
+    items: [
+      "Air conditioning",
+      "Cleaning service",
+      "DSTV / Satellite TV",
+      "Garden view",
+      "Non-smoking",
+      "Safe",
+      "Sitting area",
+      "Telephone",
+      "TV",
+      "Wi-Fi"
+    ]
+  },
+  {
+    heading: "Bathroom",
+    items: [
+      "Bathroom amenities",
+      "Bathtub / shower combination",
+      "Hairdryer",
+      "Iron",
+      "Ironing board",
+      "Shower only"
+    ]
+  },
+  {
+    heading: "Kitchen",
+    items: ["Bar fridge", "Coffee / tea facilities", "Microwave", "Refrigerator"]
+  },
+  {
+    heading: "Outdoors",
+    items: ["Braai / Barbeque facilities", "Garden", "Outdoor furniture", "Patio"]
+  }
+];
+
+export function formatRand(amount: number): string {
+  return `R ${amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`;
+}
+
 export interface Room {
   name: string;
   slug: string;
   units: number;
   image: string;
   images: string[];
-  features: string[];
-  priceFrom: string;
+  price: number;
   description: string;
+}
+
+export const roomPriceUnit = "/ night";
+
+export function formatRoomPrice(room: Room): string {
+  return `From ${formatRand(room.price)} ${roomPriceUnit}`;
 }
 
 export const rooms: Room[] = [
   {
-    name: "Standard Double Room",
-    slug: "standard-double-room",
+    name: "Deluxe Room",
+    slug: "deluxe-room",
     units: 2,
     image: "/21actualphotosgallery/Room1.jpg",
     images: [
       "/21actualphotosgallery/Room1.jpg",
       "/21actualphotosgallery/Room2.jpg"
     ],
-    features: [
-      "Double Bed",
-      "En-suite Bathroom",
-      "Air Conditioning",
-      "Smart TV",
-      "Fast WiFi",
-      "Room Service",
-      "Complimentary Parking",
-      "24hr Front Desk"
-    ],
-    priceFrom: "From R950 / night",
+    price: 1000,
     description:
-      "Our Standard Double Rooms are clean, modern, and thoughtfully designed — offering a comfortable double bed and everything you need for a restful stay in Pietermaritzburg."
+      "Our Deluxe Rooms are clean, modern, and thoughtfully designed — offering everything you need for a restful stay in Pietermaritzburg."
   },
   {
-    name: "Double Room",
-    slug: "double-room",
+    name: "Executive Room",
+    slug: "executive-room",
     units: 2,
     image: "/21actualphotosgallery/Room3.jpg",
     images: [
       "/21actualphotosgallery/Room3.jpg",
       "/21actualphotosgallery/Room4.jpg"
     ],
-    features: [
-      "Double Bed",
-      "En-suite Bathroom with Luxury Shower",
-      "Air Conditioning",
-      "Smart TV",
-      "Sensor Bathroom Lighting",
-      "Room Service",
-      "Complimentary Parking",
-      "24hr Front Desk"
-    ],
-    priceFrom: "From R1,250 / night",
+    price: 1200,
     description:
-      "Spacious and elegantly finished, our Double Rooms offer premium comfort with modern amenities and refined touches — ideal for guests who want a little extra during their stay."
+      "Spacious and elegantly finished, our Executive Rooms offer refined comfort and thoughtful touches — ideal for guests who want a little extra during their stay."
   }
 ];
+
+export interface RatePackage {
+  name: string;
+  price: number;
+  unit: string;
+  description: string;
+}
+
+export interface ConferencePackage {
+  price: number;
+  includes: string;
+}
+
+export const conferencePriceUnit = "per person";
+
+export const conferencePackages: ConferencePackage[] = [
+  { price: 150, includes: "Tea, sandwiches & scones" },
+  { price: 250, includes: "Tea, snacks & lunch" }
+];
+
+export const dinnerBedBreakfast: RatePackage = {
+  name: "Dinner, Bed & Breakfast",
+  price: 1350,
+  unit: "per person per night",
+  description: "Your stay with dinner and breakfast included."
+};
 
 export interface Testimonial {
   name: string;
@@ -145,6 +202,14 @@ export const nearbyAttractions: AttractionCategory[] = [
     ]
   }
 ];
+
+export interface StayTime {
+  display: string;
+  time24: string;
+}
+
+export const checkIn: StayTime = { display: "2:00 PM", time24: "14:00" };
+export const checkOut: StayTime = { display: "10:00 AM", time24: "10:00" };
 
 export const contact = {
   phones: ["073 224 9399", "033 342 3861"],

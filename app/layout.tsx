@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { checkIn, checkOut, formatRand, rooms } from "@/lib/constants";
 
 const displayFont = Cormorant_Garamond({
   subsets: ["latin"],
@@ -50,7 +51,9 @@ export default function RootLayout({
     },
     telephone: "+27732249399",
     email: "at21guesthouse@gmail.com",
-    priceRange: "R950 - R1,250 per night",
+    priceRange: `${formatRand(Math.min(...rooms.map((room) => room.price)))} - ${formatRand(Math.max(...rooms.map((room) => room.price)))} per night`,
+    checkinTime: checkIn.time24,
+    checkoutTime: checkOut.time24,
     starRating: { "@type": "Rating", ratingValue: "5" }
   };
 

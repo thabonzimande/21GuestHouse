@@ -12,9 +12,7 @@ interface Stat {
 const stats: Stat[] = [
   { value: "4", label: "Rooms Available", numericEnd: 4, suffix: "" },
   { value: "5★", label: "Average Guest Rating", numericEnd: 5, suffix: "★" },
-  { value: "3", label: "Service Categories", numericEnd: 3, suffix: "" },
-  { value: "24hr", label: "Front Desk Support", numericEnd: 24, suffix: "hr" }
-];
+  { value: "3", label: "Service Categories", numericEnd: 3, suffix: "" }];
 
 function AnimatedStat({ stat }: { stat: Stat }): JSX.Element {
   const [count, setCount] = useState(0);
@@ -71,7 +69,7 @@ function AnimatedStat({ stat }: { stat: Stat }): JSX.Element {
 export function StatBar(): JSX.Element {
   return (
     <section className="bg-[var(--gold)]" style={{ padding: "48px 0" }}>
-      <div className="section-container grid grid-cols-2 gap-8 md:grid-cols-4">
+      <div className="section-container grid grid-cols-1 gap-8 md:grid-cols-3">
         {stats.map((stat, i) => (
           <div
             key={stat.label}

@@ -11,6 +11,7 @@ import { fadeUpContainer, fadeUpItem, scaleIn } from "@/lib/motion";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { EventTypeCard } from "@/components/cards/EventTypeCard";
+import { conferencePackages, conferencePriceUnit, formatRand } from "@/lib/constants";
 
 function IconFrame({ children }: { children: ReactNode }): JSX.Element {
   return (
@@ -162,6 +163,38 @@ export function EventsCateringContent(): JSX.Element {
               <EventTypeCard key={et.title} title={et.title} description={et.description} icon={et.icon} />
             ))}
           </motion.div>
+
+          <div className="mt-24 text-center">
+            <Eyebrow>Conference Booking</Eyebrow>
+            <h2 className="text-h1 mt-2 text-[var(--text-primary)]">Conference packages</h2>
+          </div>
+
+          <motion.div
+            variants={fadeUpContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mx-auto mt-14 grid max-w-[820px] gap-6 sm:grid-cols-2"
+          >
+            {conferencePackages.map((pkg) => (
+              <motion.article
+                key={pkg.price}
+                variants={fadeUpItem}
+                className="border border-[var(--border-subtle)] bg-white p-8 text-center"
+                style={{ borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-card)" }}
+              >
+                <p className="text-h2 text-[var(--text-primary)]">
+                  {formatRand(pkg.price)}{" "}
+                  <span className="text-eyebrow align-middle">{conferencePriceUnit}</span>
+                </p>
+                <p className="text-body mt-3">{pkg.includes}</p>
+              </motion.article>
+            ))}
+          </motion.div>
+
+          <div className="mt-10 text-center">
+            <Button variant="tertiary" href="/contact">Book a Conference &rarr;</Button>
+          </div>
         </div>
       </section>
 

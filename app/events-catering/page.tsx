@@ -1,11 +1,12 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { EventsCateringContent } from "./content";
+import { conferencePackages, conferencePriceUnit, formatRand } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Events & Catering | @21 Guest House",
   description:
-    "Host your next celebration, corporate function, or private dinner at @21 Guest House with bespoke menus and elegant spaces."
+    `Host your next celebration, corporate function, conference, or private dinner at @21 Guest House with bespoke menus, conference packages from ${formatRand(Math.min(...conferencePackages.map((pkg) => pkg.price)))} ${conferencePriceUnit}, and elegant spaces.`
 };
 
 export default function EventsCateringPage(): JSX.Element {

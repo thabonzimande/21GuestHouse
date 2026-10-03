@@ -58,7 +58,7 @@ const values = [
   {
     icon: <DetailIcon />,
     title: "Attention to Detail",
-    body: "From sensor bathroom lighting to curated breakfast spreads — the little things matter."
+    body: "From a quiet garden patio to curated breakfast spreads — the little things matter."
   },
   {
     icon: <HospitalityIcon />,

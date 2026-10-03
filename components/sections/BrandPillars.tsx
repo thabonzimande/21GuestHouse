@@ -5,7 +5,7 @@ import { fadeUpContainer, fadeUpItem } from "@/lib/motion";
 import { GoldRule } from "@/components/ui/GoldRule";
 
 const pillars = [
-  { label: "Accommodation", text: "Elegant rooms with modern comfort and flexible check-in" },
+  { label: "Accommodation", text: "Elegant rooms with modern comfort" },
   { label: "Events", text: "Bespoke hosting for private and corporate gatherings" },
   { label: "Culinary", text: "Thoughtful catering and memorable dining experiences" }
 ];

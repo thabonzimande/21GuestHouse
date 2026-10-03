@@ -6,7 +6,7 @@ import { AccommodationContent } from "./content";
 export const metadata: Metadata = {
   title: "Accommodation | @21 Guest House",
   description:
-    "Explore our Standard Double and Double rooms — elegant, modern, and designed for a restful stay in Pietermaritzburg."
+    "Explore our Deluxe and Executive rooms — elegant, modern, and designed for a restful stay in Pietermaritzburg."
 };
 
 export default function AccommodationPage(): JSX.Element {

@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 };
 
 const galleryImages = [
-  { src: "/21actualphotosgallery/Room1.jpg", alt: "Standard Double Room 1", category: "Rooms" },
-  { src: "/21actualphotosgallery/Room2.jpg", alt: "Standard Double Room 2", category: "Rooms" },
-  { src: "/21actualphotosgallery/Room3.jpg", alt: "Double Room 3", category: "Rooms" },
-  { src: "/21actualphotosgallery/Room4.jpg", alt: "Double Room 4", category: "Rooms" },
+  { src: "/21actualphotosgallery/Room1.jpg", alt: "Deluxe Room 1", category: "Rooms" },
+  { src: "/21actualphotosgallery/Room2.jpg", alt: "Deluxe Room 2", category: "Rooms" },
+  { src: "/21actualphotosgallery/Room3.jpg", alt: "Executive Room 3", category: "Rooms" },
+  { src: "/21actualphotosgallery/Room4.jpg", alt: "Executive Room 4", category: "Rooms" },
   { src: "/21actualphotosgallery/Room.jpeg", alt: "Room at @21 Guest House", category: "Rooms" },
   { src: "/21actualphotosgallery/Bathroom.jpeg", alt: "Bathroom detail at @21", category: "Rooms" },
   { src: "/21actualphotosgallery/Exterior.jpeg", alt: "@21 Guest House exterior", category: "Property" },

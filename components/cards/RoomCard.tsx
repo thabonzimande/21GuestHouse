@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeUpItem } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
+import { amenities, formatRoomPrice } from "@/lib/constants";
 import type { Room } from "@/lib/constants";
 
 interface RoomCardProps {
@@ -41,13 +42,13 @@ export function RoomCard({ room }: RoomCardProps): JSX.Element {
           className="mt-1 text-[0.75rem] tracking-[0.04em] text-[var(--text-tertiary)]"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
-          {room.priceFrom}
+          {formatRoomPrice(room)}
         </p>
 
         <hr className="my-[18px] border-t border-[var(--border-subtle)]" />
 
         <ul className="space-y-1">
-          {room.features.slice(0, 5).map((feature) => (
+          {amenities[0].items.slice(0, 5).map((feature) => (
             <li
               key={feature}
               className="text-[0.875rem] leading-[1.9] text-[var(--text-secondary)]"

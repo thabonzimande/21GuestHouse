@@ -9,7 +9,7 @@ import { fadeUpContainer, fadeUpItem } from "@/lib/motion";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
-import { contact } from "@/lib/constants";
+import { checkIn, checkOut, contact } from "@/lib/constants";
 
 const contactSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -33,9 +33,8 @@ const contactItems = [
   { icon: "📍", label: "Address", value: contact.address },
   { icon: "📞", label: "Phone", value: `${contact.phones[0]} | ${contact.phones[1]}` },
   { icon: "✉", label: "Email", value: contact.email },
-  { icon: "🕐", label: "Check-in", value: "Flexible — contact us for arrangements" },
-  { icon: "🅿", label: "Parking", value: "Complimentary private parking" }
-];
+  { icon: "🕐", label: "Check-in", value: `From ${checkIn.display}` },
+  { icon: "🕐", label: "Check-out", value: `By ${checkOut.display}` }];
 
 export function ContactContent(): JSX.Element {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");

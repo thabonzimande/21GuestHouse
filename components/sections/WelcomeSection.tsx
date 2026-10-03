@@ -68,9 +68,9 @@ export function WelcomeSection(): JSX.Element {
           </motion.h2>
 
           <motion.p variants={fadeUpItem} className="text-body mt-6">
-            @21 Guest House offers premium stays with modern finishes, flexible check-in,
-            24-hour front desk support, room service, complimentary parking, and a peaceful
-            garden setting &mdash; all in the heart of Pietermaritzburg&apos;s Natal Midlands.
+            @21 Guest House offers premium stays with modern finishes, Wi-Fi, DSTV, and a
+            peaceful garden with a patio and braai facilities &mdash; all in the heart of
+            Pietermaritzburg&apos;s Natal Midlands.
           </motion.p>
 
           <motion.div variants={fadeUpItem}>
