@@ -55,7 +55,7 @@ export function Footer(): JSX.Element {
           </p>
 
           <div className="mt-6 flex items-center gap-5">
-            <a href="https://instagram.com/at21guesthouse" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 transition-colors duration-200 hover:text-white">
+            <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 transition-colors duration-200 hover:text-white">
               <InstagramIcon />
             </a>
             <a href="https://tiktok.com/@at21guesthouse" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white/60 transition-colors duration-200 hover:text-white">
@@ -91,8 +91,7 @@ export function Footer(): JSX.Element {
         <div>
           <p className="text-eyebrow">Get In Touch</p>
           <div className="mt-5 space-y-1 text-[0.82rem] leading-[2.2] text-white/60" style={{ fontFamily: "var(--font-body), sans-serif" }}>
-            <p>Tel: {contact.phones[0]}</p>
-            <p>Tel: {contact.phones[1]}</p>
+            <p>Tel: {contact.phone}</p>
             <p>{contact.email}</p>
           </div>
           <div className="mt-7">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { rooms } from "@/lib/constants";
+import { contact, rooms } from "@/lib/constants";
 import { AccommodationContent } from "./content";
 
 export const metadata: Metadata = {
@@ -57,7 +57,7 @@ export default function AccommodationPage(): JSX.Element {
             className="mt-3 text-[0.875rem] text-[var(--charcoal)]/65"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
-            073 224 9399 &nbsp;|&nbsp; 033 342 3861 &nbsp;|&nbsp; at21guesthouse@gmail.com
+            {contact.phone} &nbsp;|&nbsp; {contact.email}
           </p>
           <div className="mt-6 flex justify-center">
             <a

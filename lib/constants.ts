@@ -212,8 +212,9 @@ export const checkIn: StayTime = { display: "2:00 PM", time24: "14:00" };
 export const checkOut: StayTime = { display: "10:00 AM", time24: "10:00" };
 
 export const contact = {
-  phones: ["073 224 9399", "033 342 3861"],
+  phone: "073 224 9399",
   email: "at21guesthouse@gmail.com",
+  instagram: "https://www.instagram.com/attwentyone_guesthouse/",
   address: "21 Mayors Walk Road, Pietermaritzburg, KwaZulu-Natal, South Africa"
 };
 

@@ -31,7 +31,7 @@ const labelStyles = "block text-[0.7rem] font-medium tracking-[0.15em] uppercase
 
 const contactItems = [
   { icon: "📍", label: "Address", value: contact.address },
-  { icon: "📞", label: "Phone", value: `${contact.phones[0]} | ${contact.phones[1]}` },
+  { icon: "📞", label: "Phone", value: contact.phone },
   { icon: "✉", label: "Email", value: contact.email },
   { icon: "🕐", label: "Check-in", value: `From ${checkIn.display}` },
   { icon: "🕐", label: "Check-out", value: `By ${checkOut.display}` }];

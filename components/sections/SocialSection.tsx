@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { contact } from "@/lib/constants";
 
 const socialImages = [
   { src: "/21actualphotosgallery/Exterior.jpeg", alt: "@21 Guest House exterior" },
@@ -95,7 +96,7 @@ export function SocialSection(): JSX.Element {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-10">
           {[
-            { icon: <InstagramIcon />, label: "Instagram", url: "https://instagram.com/at21guesthouse" },
+            { icon: <InstagramIcon />, label: "Instagram", url: contact.instagram },
             { icon: <TikTokIcon />, label: "TikTok", url: "https://tiktok.com/@at21guesthouse" },
             { icon: <FacebookIcon />, label: "Facebook", url: "https://facebook.com/at21guesthouse" }
           ].map((social) => (
