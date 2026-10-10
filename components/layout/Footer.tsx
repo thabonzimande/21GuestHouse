@@ -92,6 +92,7 @@ export function Footer(): JSX.Element {
           <p className="text-eyebrow">Get In Touch</p>
           <div className="mt-5 space-y-1 text-[0.82rem] leading-[2.2] text-white/60" style={{ fontFamily: "var(--font-body), sans-serif" }}>
             <p>Tel: {contact.phone}</p>
+            <p>Alt: {contact.alternativePhone}</p>
             <p>{contact.email}</p>
           </div>
           <div className="mt-7">

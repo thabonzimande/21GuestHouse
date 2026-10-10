@@ -51,7 +51,7 @@ export default async function RootLayout({
       addressRegion: "KwaZulu-Natal",
       addressCountry: "ZA"
     },
-    telephone: "+27732249399",
+    telephone: "+27333423861",
     email: "at21guesthouse@gmail.com",
     priceRange: formatRoomPriceRange(rooms) ?? undefined,
     checkinTime: checkIn.time24,

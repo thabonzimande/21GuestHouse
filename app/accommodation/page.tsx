@@ -62,7 +62,7 @@ export default async function AccommodationPage(): Promise<JSX.Element> {
             className="mt-3 text-[0.875rem] text-[var(--charcoal)]/65"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
-            {contact.phone} &nbsp;|&nbsp; {contact.email}
+            {contact.phone} &nbsp;|&nbsp; {contact.alternativePhone} &nbsp;|&nbsp; {contact.email}
           </p>
           <div className="mt-6 flex justify-center">
             <a
