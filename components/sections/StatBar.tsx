@@ -9,10 +9,16 @@ interface Stat {
   suffix: string;
 }
 
-const stats: Stat[] = [
-  { value: "4", label: "Rooms Available", numericEnd: 4, suffix: "" },
-  { value: "5★", label: "Average Guest Rating", numericEnd: 5, suffix: "★" },
-  { value: "3", label: "Service Categories", numericEnd: 3, suffix: "" }];
+function buildStats(roomCount: number): Stat[] {
+  return [
+    { value: `${roomCount}`, label: "Rooms Available", numericEnd: roomCount, suffix: "" },
+    { value: "5★", label: "Average Guest Rating", numericEnd: 5, suffix: "★" },
+    { value: "3", label: "Service Categories", numericEnd: 3, suffix: "" }];
+}
+
+interface StatBarProps {
+  roomCount: number;
+}
 
 function AnimatedStat({ stat }: { stat: Stat }): JSX.Element {
   const [count, setCount] = useState(0);
@@ -66,7 +72,8 @@ function AnimatedStat({ stat }: { stat: Stat }): JSX.Element {
   );
 }
 
-export function StatBar(): JSX.Element {
+export function StatBar({ roomCount }: StatBarProps): JSX.Element {
+  const stats: Stat[] = buildStats(roomCount);
   return (
     <section className="bg-[var(--gold)]" style={{ padding: "48px 0" }}>
       <div className="section-container grid grid-cols-1 gap-8 md:grid-cols-3">

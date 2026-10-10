@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeUpItem } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
-import { amenities, formatRoomPrice } from "@/lib/constants";
+import { formatRoomPrice } from "@/lib/constants";
 import type { Room } from "@/lib/constants";
 
 interface RoomCardProps {
@@ -33,6 +33,7 @@ export function RoomCard({ room }: RoomCardProps): JSX.Element {
           fill
           className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-luxury)] group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 50vw"
+          unoptimized={room.image.startsWith("http")}
         />
       </div>
 
@@ -48,7 +49,7 @@ export function RoomCard({ room }: RoomCardProps): JSX.Element {
         <hr className="my-[18px] border-t border-[var(--border-subtle)]" />
 
         <ul className="space-y-1">
-          {amenities[0].items.slice(0, 5).map((feature) => (
+          {room.amenities.flatMap((category) => category.items).slice(0, 5).map((feature) => (
             <li
               key={feature}
               className="text-[0.875rem] leading-[1.9] text-[var(--text-secondary)]"
@@ -61,7 +62,7 @@ export function RoomCard({ room }: RoomCardProps): JSX.Element {
 
         <hr className="my-[18px] border-t border-[var(--border-subtle)]" />
 
-        <Button variant="tertiary" href={`/accommodation/${room.slug}`}>
+        <Button variant="tertiary" href={`/accommodation#${room.slug}`}>
           View Room
         </Button>
       </div>

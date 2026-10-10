@@ -10,28 +10,28 @@ import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { FormSuccess } from "@/components/ui/FormSuccess";
-import { contactGoogleForm } from "@/lib/constants";
+import { bookingGoogleForm } from "@/lib/constants";
 import { inputStyles, labelStyles } from "@/lib/form-styles";
 import { submitGoogleForm } from "@/lib/google-forms";
 
-const contactSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
+const bookingSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  surname: z.string().min(1, "Surname is required"),
   email: z.string().email("Valid email is required"),
-  phone: z.string().min(1, "Phone number is required"),
-  message: z.string().min(1, "Message is required")
+  date: z.string()
 });
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+type BookingFormValues = z.infer<typeof bookingSchema>;
 
-export function ContactContent(): JSX.Element {
+export function BookContent(): JSX.Element {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema)
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<BookingFormValues>({
+    resolver: zodResolver(bookingSchema)
   });
 
-  const onSubmit = async (values: ContactFormValues): Promise<void> => {
-    await submitGoogleForm(contactGoogleForm, values);
+  const onSubmit = async (values: BookingFormValues): Promise<void> => {
+    await submitGoogleForm(bookingGoogleForm, values);
     setStatus("success");
     reset();
   };
@@ -47,16 +47,16 @@ export function ContactContent(): JSX.Element {
           className="text-center"
         >
           <motion.div variants={fadeUpItem}>
-            <Eyebrow>Get In Touch</Eyebrow>
+            <Eyebrow>Book Now</Eyebrow>
           </motion.div>
           <motion.h2 variants={fadeUpItem} className="text-h1 mt-2 text-[var(--text-primary)]">
-            We&apos;d love to hear from you
+            Reserve your stay
           </motion.h2>
 
           {status === "success" ? (
             <FormSuccess
-              title="Thank you! Your message has been sent."
-              message="We'll get back to you as soon as possible."
+              title="Thank you! Your booking request has been sent."
+              message="We'll be in touch shortly to confirm your stay."
             />
           ) : (
             <form
@@ -69,32 +69,32 @@ export function ContactContent(): JSX.Element {
               })}
               className="mt-10 space-y-8 text-left"
             >
-              <div>
-                <label htmlFor="fullName" className={labelStyles}>Full Name</label>
-                <input id="fullName" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("fullName")} />
-                {errors.fullName && <p className="mt-1 text-[0.75rem] text-red-600">{errors.fullName.message}</p>}
+              <div className="grid gap-8 md:grid-cols-2">
+                <div>
+                  <label htmlFor="name" className={labelStyles}>Name</label>
+                  <input id="name" autoComplete="given-name" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("name")} />
+                  {errors.name && <p className="mt-1 text-[0.75rem] text-red-600">{errors.name.message}</p>}
+                </div>
+                <div>
+                  <label htmlFor="surname" className={labelStyles}>Surname</label>
+                  <input id="surname" autoComplete="family-name" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("surname")} />
+                  {errors.surname && <p className="mt-1 text-[0.75rem] text-red-600">{errors.surname.message}</p>}
+                </div>
               </div>
 
               <div>
                 <label htmlFor="email" className={labelStyles}>Email</label>
-                <input id="email" type="email" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("email")} />
+                <input id="email" type="email" autoComplete="email" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("email")} />
                 {errors.email && <p className="mt-1 text-[0.75rem] text-red-600">{errors.email.message}</p>}
               </div>
 
               <div>
-                <label htmlFor="phone" className={labelStyles}>Phone</label>
-                <input id="phone" type="tel" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("phone")} />
-                {errors.phone && <p className="mt-1 text-[0.75rem] text-red-600">{errors.phone.message}</p>}
-              </div>
-
-              <div>
-                <label htmlFor="message" className={labelStyles}>Message</label>
-                <textarea id="message" rows={4} className={`${inputStyles} resize-none`} style={{ fontFamily: "var(--font-display), serif" }} {...register("message")} />
-                {errors.message && <p className="mt-1 text-[0.75rem] text-red-600">{errors.message.message}</p>}
+                <label htmlFor="date" className={labelStyles}>Date (optional)</label>
+                <input id="date" type="date" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("date")} />
               </div>
 
               <Button variant="primary" type="submit" className="w-full justify-center" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Sending..." : "Request Booking"}
               </Button>
 
               {status === "error" && (

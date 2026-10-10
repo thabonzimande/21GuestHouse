@@ -7,16 +7,19 @@ import { StatBar } from "@/components/sections/StatBar";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { NearbySection } from "@/components/sections/NearbySection";
 import { SocialSection } from "@/components/sections/SocialSection";
+import { countRoomUnits } from "@/lib/constants";
+import { fetchRooms } from "@/lib/notion-client";
 
-export default function HomePage(): JSX.Element {
+export default async function HomePage(): Promise<JSX.Element> {
+  const rooms = await fetchRooms();
   return (
     <>
       <Hero />
       <BrandPillars />
       <WelcomeSection />
-      <FeaturedRooms />
+      <FeaturedRooms rooms={rooms} />
       <EventsFeature />
-      <StatBar />
+      <StatBar roomCount={countRoomUnits(rooms)} />
       <Testimonials />
       <NearbySection />
       <SocialSection />

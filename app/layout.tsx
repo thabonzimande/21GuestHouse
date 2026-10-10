@@ -3,7 +3,8 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
-import { checkIn, checkOut, formatRand, rooms } from "@/lib/constants";
+import { checkIn, checkOut, formatRoomPriceRange } from "@/lib/constants";
+import { fetchRooms } from "@/lib/notion-client";
 
 const displayFont = Cormorant_Garamond({
   subsets: ["latin"],
@@ -31,11 +32,12 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
-}>): JSX.Element {
+}>): Promise<JSX.Element> {
+  const rooms = await fetchRooms();
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
@@ -51,7 +53,7 @@ export default function RootLayout({
     },
     telephone: "+27732249399",
     email: "at21guesthouse@gmail.com",
-    priceRange: `${formatRand(Math.min(...rooms.map((room) => room.price)))} - ${formatRand(Math.max(...rooms.map((room) => room.price)))} per night`,
+    priceRange: formatRoomPriceRange(rooms) ?? undefined,
     checkinTime: checkIn.time24,
     checkoutTime: checkOut.time24,
     starRating: { "@type": "Rating", ratingValue: "5" }

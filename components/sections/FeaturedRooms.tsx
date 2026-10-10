@@ -5,9 +5,16 @@ import { fadeUpContainer } from "@/lib/motion";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { RoomCard } from "@/components/cards/RoomCard";
-import { rooms } from "@/lib/constants";
+import type { Room } from "@/lib/constants";
 
-export function FeaturedRooms(): JSX.Element {
+interface FeaturedRoomsProps {
+  rooms: Room[];
+}
+
+export function FeaturedRooms({ rooms }: FeaturedRoomsProps): JSX.Element | null {
+  if (rooms.length === 0) {
+    return null;
+  }
   return (
     <section className="bg-[var(--cream-dark)]" style={{ paddingTop: "var(--space-section)", paddingBottom: "var(--space-section)" }}>
       <div className="section-container">
@@ -27,7 +34,7 @@ export function FeaturedRooms(): JSX.Element {
           className="mt-14 grid gap-8 md:grid-cols-2"
         >
           {rooms.map((room) => (
-            <RoomCard key={room.slug} room={room} />
+            <RoomCard key={room.id} room={room} />
           ))}
         </motion.div>
       </div>

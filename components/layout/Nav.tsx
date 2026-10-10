@@ -38,15 +38,15 @@ export function Nav(): JSX.Element {
     };
   }, [mobileOpen]);
 
-  const linkColor = useSolidNav ? "text-[var(--text-secondary)]" : "text-white";
-  const logoSubColor = useSolidNav ? "text-[var(--text-secondary)]" : "text-white/80";
+  const linkColor = "text-white";
+  const logoSubColor = "text-white";
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-[0.4s] ${
           useSolidNav
-            ? "border-b border-[var(--border)] bg-[var(--cream)]/[0.96] backdrop-blur-[16px] backdrop-saturate-[180%]"
+            ? "border-b border-[var(--border)] bg-[rgba(26,26,26,0.92)] backdrop-blur-[16px] backdrop-saturate-[180%]"
             : "bg-transparent"
         }`}
         style={{
@@ -91,7 +91,7 @@ export function Nav(): JSX.Element {
 
           <div className="flex shrink-0 items-center justify-end gap-3">
             <div className="hidden lg:block">
-              <Button variant="primary" href="/contact" className="!px-5 !py-[10px] !text-[0.68rem]">
+              <Button variant="primary" href="/book" className="!px-5 !py-[10px] !text-[0.68rem]">
                 Book Now
               </Button>
             </div>
@@ -107,27 +107,17 @@ export function Nav(): JSX.Element {
                 className={`block h-[1.5px] w-5 transition-all duration-300 ${
                   mobileOpen
                     ? "translate-y-[6.5px] rotate-45 bg-white"
-                    : useSolidNav
-                      ? "bg-[var(--charcoal)]"
-                      : "bg-white"
+                    : "bg-white"
                 }`}
               />
               <span
                 className={`block h-[1.5px] w-5 transition-all duration-300 ${
-                  mobileOpen
-                    ? "opacity-0"
-                    : useSolidNav
-                      ? "bg-[var(--charcoal)]"
-                      : "bg-white"
+                  mobileOpen ? "opacity-0" : "bg-white"
                 }`}
               />
               <span
                 className={`block h-[1.5px] w-5 transition-all duration-300 ${
-                  mobileOpen
-                    ? "-translate-y-[6.5px] -rotate-45 bg-white"
-                    : useSolidNav
-                      ? "bg-[var(--charcoal)]"
-                      : "bg-white"
+                  mobileOpen ? "-translate-y-[6.5px] -rotate-45 bg-white" : "bg-white"
                 }`}
               />
             </button>
@@ -178,7 +168,7 @@ export function Nav(): JSX.Element {
                 transition={{ delay: 0.15 + navLinks.length * 0.08, duration: 0.5 }}
                 className="mt-4"
               >
-                <Button variant="primary" href="/contact">
+                <Button variant="primary" href="/book">
                   Book Now
                 </Button>
               </motion.div>

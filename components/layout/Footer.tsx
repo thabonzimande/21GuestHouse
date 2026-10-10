@@ -75,7 +75,7 @@ export function Footer(): JSX.Element {
         <div>
           <p className="text-eyebrow">Explore</p>
           <nav className="mt-5 flex flex-col">
-            {[...navLinks, { href: "/contact", label: "Contact" }].map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -95,7 +95,7 @@ export function Footer(): JSX.Element {
             <p>{contact.email}</p>
           </div>
           <div className="mt-7">
-            <Button variant="primary" href="/contact" className="w-full justify-center">
+            <Button variant="primary" href="/book" className="w-full justify-center">
               Book Now
             </Button>
           </div>

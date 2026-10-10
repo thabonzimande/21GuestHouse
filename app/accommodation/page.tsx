@@ -1,18 +1,23 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { contact, rooms } from "@/lib/constants";
+import { contact } from "@/lib/constants";
+import { fetchRooms } from "@/lib/notion-client";
 import { AccommodationContent } from "./content";
 
-export const metadata: Metadata = {
-  title: "Accommodation | @21 Guest House",
-  description:
-    "Explore our Deluxe and Executive rooms — elegant, modern, and designed for a restful stay in Pietermaritzburg."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const rooms = await fetchRooms();
+  const roomNames: string = rooms.map((room) => room.name).join(", ");
+  return {
+    title: "Accommodation | @21 Guest House",
+    description: `Explore our rooms${roomNames ? ` (${roomNames})` : ""} — elegant, modern, and designed for a restful stay in Pietermaritzburg.`
+  };
+}
 
-export default function AccommodationPage(): JSX.Element {
+export default async function AccommodationPage(): Promise<JSX.Element> {
+  const rooms = await fetchRooms();
   return (
     <>
-      <section className="relative overflow-hidden" style={{ height: "60vh" }}>
+      <section className="relative overflow-hidden" style={{ height: "60vh", minHeight: "420px" }}>
         <Image
           src="/21actualphotosgallery/Room1.jpg"
           alt="Double room at @21 Guest House"
@@ -30,7 +35,7 @@ export default function AccommodationPage(): JSX.Element {
         />
         <div className="absolute inset-0 z-[2] flex items-center justify-center pt-20 text-center">
           <div className="max-w-[640px] px-6">
-            <h1 className="text-display text-white">
+            <h1 className="text-h1 text-white">
               Where Comfort<br />Meets Elegance
             </h1>
             <p

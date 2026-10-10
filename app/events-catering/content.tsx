@@ -11,7 +11,17 @@ import { fadeUpContainer, fadeUpItem, scaleIn } from "@/lib/motion";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { EventTypeCard } from "@/components/cards/EventTypeCard";
-import { conferencePackages, conferencePriceUnit, formatRand } from "@/lib/constants";
+import { FormSuccess } from "@/components/ui/FormSuccess";
+import {
+  conferencePackages,
+  conferencePriceUnit,
+  eventsGoogleForm,
+  eventTypeOptions,
+  expectedGuestOptions,
+  formatRand
+} from "@/lib/constants";
+import { inputStyles, labelStyles } from "@/lib/form-styles";
+import { googleFormOtherOption, submitGoogleForm } from "@/lib/google-forms";
 
 function IconFrame({ children }: { children: ReactNode }): JSX.Element {
   return (
@@ -100,45 +110,40 @@ const eventTypes: EventType[] = [
   { title: "Year-End Functions", description: "Close the year with celebration", icon: <YearEndIcon /> }
 ];
 
-const eventFormSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  email: z.string().email("Valid email is required"),
-  phone: z.string().min(1, "Phone number is required"),
-  eventType: z.string().min(1, "Please select an event type"),
-  guestCount: z.string().min(1, "Expected guest count is required"),
-  preferredDate: z.string().min(1, "Preferred date is required"),
-  details: z.string().optional()
-});
+const eventFormSchema = z
+  .object({
+    name: z.string().min(1, "Name is required"),
+    surname: z.string().min(1, "Surname is required"),
+    email: z.string().email("Valid email is required"),
+    eventType: z.string(),
+    eventTypeOther: z.string(),
+    date: z.string(),
+    phone: z.string(),
+    guests: z.string(),
+    details: z.string()
+  })
+  .refine((values) => values.eventType !== googleFormOtherOption || values.eventTypeOther.trim().length > 0, {
+    message: "Please describe your event",
+    path: ["eventTypeOther"]
+  });
 
 type EventFormValues = z.infer<typeof eventFormSchema>;
-
-const inputStyles = [
-  "w-full border-0 border-b border-[var(--border)] bg-transparent py-3",
-  "text-[1.1rem] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)]",
-  "transition-colors duration-[var(--duration-fast)]",
-  "focus:border-b-[var(--gold)] focus:outline-none"
-].join(" ");
-
-const labelStyles = "block text-[0.7rem] font-medium tracking-[0.15em] uppercase text-[var(--gold)]";
 
 export function EventsCateringContent(): JSX.Element {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<EventFormValues>({
-    resolver: zodResolver(eventFormSchema)
+  const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } = useForm<EventFormValues>({
+    resolver: zodResolver(eventFormSchema),
+    // eventTypeOther is only mounted when "Other" is selected, so it needs an initial value to pass validation.
+    defaultValues: { name: "", surname: "", email: "", eventType: "", eventTypeOther: "", date: "", phone: "", guests: "", details: "" }
   });
+  const isOtherEventType: boolean = watch("eventType") === googleFormOtherOption;
 
   const onSubmit = async (values: EventFormValues): Promise<void> => {
-    const response = await fetch("https://formspree.io/f/REPLACE", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values)
+    await submitGoogleForm(eventsGoogleForm, {
+      ...values,
+      eventTypeOther: values.eventType === googleFormOtherOption ? values.eventTypeOther : ""
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to submit");
-    }
-
     setStatus("success");
     reset();
   };
@@ -193,7 +198,7 @@ export function EventsCateringContent(): JSX.Element {
           </motion.div>
 
           <div className="mt-10 text-center">
-            <Button variant="tertiary" href="/contact">Book a Conference &rarr;</Button>
+            <Button variant="tertiary" href="#event-inquiry">Book a Conference &rarr;</Button>
           </div>
         </div>
       </section>
@@ -245,20 +250,19 @@ export function EventsCateringContent(): JSX.Element {
         </div>
       </section>
 
-      <section className="bg-white" style={{ paddingTop: "var(--space-section)", paddingBottom: "var(--space-section)" }}>
+      <section id="event-inquiry" className="scroll-mt-20 bg-white" style={{ paddingTop: "var(--space-section)", paddingBottom: "var(--space-section)" }}>
         <div className="section-container mx-auto max-w-[680px]">
           <div className="text-center">
-            <Eyebrow>Event Inquiry</Eyebrow>
+            <Eyebrow>Event Booking</Eyebrow>
             <h2 className="text-h1 mt-2 text-[var(--text-primary)]">Plan your event</h2>
           </div>
 
           {status === "success" ? (
-            <div className="mt-12 text-center">
-              <p className="text-[2rem] text-[var(--gold)]">&#10003;</p>
-              <p className="text-h3 mt-4 text-[var(--text-primary)]">Thank you!</p>
-              <p className="text-body mt-2">
-                We&apos;ve received your inquiry and will be in touch shortly.
-              </p>
+            <div className="text-center">
+              <FormSuccess
+                title="Thank you! Your event booking request has been sent."
+                message="We'll be in touch shortly to plan the details with you."
+              />
             </div>
           ) : (
             <form
@@ -271,56 +275,72 @@ export function EventsCateringContent(): JSX.Element {
               })}
               className="mt-12 space-y-8"
             >
-              <div>
-                <label htmlFor="fullName" className={labelStyles}>Full Name</label>
-                <input id="fullName" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("fullName")} />
-                {errors.fullName && <p className="mt-1 text-[0.75rem] text-red-600">{errors.fullName.message}</p>}
+              <div className="grid gap-8 md:grid-cols-2">
+                <div>
+                  <label htmlFor="eventName" className={labelStyles}>Name</label>
+                  <input id="eventName" autoComplete="given-name" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("name")} />
+                  {errors.name && <p className="mt-1 text-[0.75rem] text-red-600">{errors.name.message}</p>}
+                </div>
+                <div>
+                  <label htmlFor="eventSurname" className={labelStyles}>Surname</label>
+                  <input id="eventSurname" autoComplete="family-name" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("surname")} />
+                  {errors.surname && <p className="mt-1 text-[0.75rem] text-red-600">{errors.surname.message}</p>}
+                </div>
               </div>
 
               <div className="grid gap-8 md:grid-cols-2">
                 <div>
                   <label htmlFor="email" className={labelStyles}>Email</label>
-                  <input id="email" type="email" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("email")} />
+                  <input id="email" type="email" autoComplete="email" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("email")} />
                   {errors.email && <p className="mt-1 text-[0.75rem] text-red-600">{errors.email.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="phone" className={labelStyles}>Phone</label>
-                  <input id="phone" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("phone")} />
-                  {errors.phone && <p className="mt-1 text-[0.75rem] text-red-600">{errors.phone.message}</p>}
+                  <label htmlFor="phone" className={labelStyles}>Phone (optional)</label>
+                  <input id="phone" type="tel" autoComplete="tel" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("phone")} />
                 </div>
               </div>
 
               <div className="grid gap-8 md:grid-cols-2">
                 <div>
-                  <label htmlFor="eventType" className={labelStyles}>Event Type</label>
+                  <label htmlFor="eventType" className={labelStyles}>Event Type (optional)</label>
                   <select id="eventType" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("eventType")}>
                     <option value="">Select type</option>
-                    {eventTypes.map((et) => (
-                      <option key={et.title} value={et.title}>{et.title}</option>
+                    {eventTypeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                   </select>
-                  {errors.eventType && <p className="mt-1 text-[0.75rem] text-red-600">{errors.eventType.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="guestCount" className={labelStyles}>Expected Guests</label>
-                  <input id="guestCount" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("guestCount")} />
-                  {errors.guestCount && <p className="mt-1 text-[0.75rem] text-red-600">{errors.guestCount.message}</p>}
+                  <label htmlFor="guests" className={labelStyles}>Expected Guests (optional)</label>
+                  <select id="guests" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("guests")}>
+                    <option value="">Select</option>
+                    {expectedGuestOptions.map((option) => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
+              {isOtherEventType && (
+                <div>
+                  <label htmlFor="eventTypeOther" className={labelStyles}>Describe your event</label>
+                  <input id="eventTypeOther" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("eventTypeOther")} />
+                  {errors.eventTypeOther && <p className="mt-1 text-[0.75rem] text-red-600">{errors.eventTypeOther.message}</p>}
+                </div>
+              )}
+
               <div>
-                <label htmlFor="preferredDate" className={labelStyles}>Preferred Date</label>
-                <input id="preferredDate" type="date" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("preferredDate")} />
-                {errors.preferredDate && <p className="mt-1 text-[0.75rem] text-red-600">{errors.preferredDate.message}</p>}
+                <label htmlFor="date" className={labelStyles}>Preferred Date (optional)</label>
+                <input id="date" type="date" className={inputStyles} style={{ fontFamily: "var(--font-display), serif" }} {...register("date")} />
               </div>
 
               <div>
-                <label htmlFor="details" className={labelStyles}>Additional Details</label>
+                <label htmlFor="details" className={labelStyles}>Additional Details (optional)</label>
                 <textarea id="details" rows={4} className={`${inputStyles} resize-none`} style={{ fontFamily: "var(--font-display), serif" }} {...register("details")} />
               </div>
 
               <Button variant="primary" type="submit" className="w-full justify-center" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Submit Inquiry"}
+                {isSubmitting ? "Sending..." : "Request Event Booking"}
               </Button>
 
               {status === "error" && (

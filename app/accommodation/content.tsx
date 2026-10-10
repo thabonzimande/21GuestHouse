@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { fadeUpContainer, fadeUpItem, scaleIn } from "@/lib/motion";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
-import { amenities, dinnerBedBreakfast, formatRand, formatRoomPrice } from "@/lib/constants";
+import { dinnerBedBreakfast, formatRand, formatRoomPrice } from "@/lib/constants";
 import type { Room } from "@/lib/constants";
 
 interface AccommodationContentProps {
@@ -16,13 +16,19 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
   return (
     <section className="bg-[var(--cream)]" style={{ paddingTop: "var(--space-section)", paddingBottom: "var(--space-section)" }}>
       <div className="section-container space-y-24">
+        {rooms.length === 0 && (
+          <p className="text-body text-center">
+            Room details are unavailable right now. Please contact us for rates and availability.
+          </p>
+        )}
         {rooms.map((room, index) => {
           const reversed = index % 2 !== 0;
 
           return (
             <div
-              key={room.slug}
-              className={`grid items-start gap-8 md:grid-cols-[minmax(300px,520px)_1fr] md:gap-10 lg:gap-12 ${reversed ? "md:[direction:rtl]" : ""}`}
+              key={room.id}
+              id={room.slug}
+              className={`grid scroll-mt-28 items-start gap-8 md:grid-cols-[minmax(300px,520px)_1fr] md:gap-10 lg:gap-12 ${reversed ? "md:[direction:rtl]" : ""}`}
             >
               <motion.div
                 variants={scaleIn}
@@ -43,6 +49,7 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 520px"
+                      unoptimized={src.startsWith("http")}
                       priority={imageIndex === 0}
                     />
                   </div>
@@ -65,7 +72,10 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
                 </motion.h2>
 
                 <motion.p variants={fadeUpItem} className="text-body mt-2">
-                  {room.units} unit(s) &nbsp;|&nbsp; {formatRoomPrice(room)}
+                  {room.units !== null && <>{room.units} unit(s) &nbsp;|&nbsp; </>}
+                  {room.beds !== null && <>{room.beds} bed(s) &nbsp;|&nbsp; </>}
+                  {room.sizeSqm !== null && <>{room.sizeSqm} m² &nbsp;|&nbsp; </>}
+                  {formatRoomPrice(room)}
                 </motion.p>
 
                 <motion.p variants={fadeUpItem} className="text-body mt-4">
@@ -73,7 +83,7 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
                 </motion.p>
 
                 <motion.div variants={fadeUpItem} className="mt-6 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {amenities.map((category) => (
+                  {room.amenities.map((category) => (
                     <div key={category.heading}>
                       <p className="text-eyebrow">{category.heading}</p>
                       <ul className="mt-2">
@@ -92,7 +102,7 @@ export function AccommodationContent({ rooms }: AccommodationContentProps): JSX.
                 </motion.div>
 
                 <motion.div variants={fadeUpItem} className="mt-8 flex flex-wrap gap-4">
-                  <Button variant="primary" href="/contact">Book This Room</Button>
+                  <Button variant="primary" href="/book">Book This Room</Button>
                   <Button variant="tertiary" href="/gallery">View Gallery</Button>
                 </motion.div>
               </motion.div>

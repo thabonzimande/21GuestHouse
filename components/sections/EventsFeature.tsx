@@ -58,7 +58,7 @@ export function EventsFeature(): JSX.Element {
           </motion.p>
 
           <motion.div variants={fadeUpItem} className="mt-8">
-            <Button variant="primary" href="/events-catering">Plan Your Event</Button>
+            <Button variant="primary" href="/events-catering#event-inquiry">Plan Your Event</Button>
           </motion.div>
 
           <motion.p

@@ -127,7 +127,7 @@ export function Hero(): JSX.Element {
           transition={{ delay: 0.5 }}
           className="mt-9 flex flex-wrap gap-4"
         >
-          <Button variant="primary" href="/contact">Book Your Stay</Button>
+          <Button variant="primary" href="/book">Book Your Stay</Button>
           <Button variant="secondary" href="/events-catering">Explore Events</Button>
         </motion.div>
       </div>
